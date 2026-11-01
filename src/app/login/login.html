@@ -1,0 +1,35 @@
+<div class="auth-page">
+  <section class="auth-brand">
+    <div class="brand-mark">⬡</div>
+    <div class="brand-name">Sentinel</div>
+    <p>المراقبة الذكية للحوادث</p>
+    <div class="brand-foot">Human review · Evidence-based decisions</div>
+  </section>
+  <section class="auth-content">
+    <form class="auth-card" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="eyebrow">STAFF PORTAL</div>
+      <h1>أهلاً بعودتك</h1>
+      <p class="subtext">سجّل الدخول بحسابك لمراجعة الحوادث.</p>
+      <div class="form-field">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" formControlName="email" placeholder="name@example.com" dir="ltr">
+        @if(userForm.get('email')?.invalid && userForm.get('email')?.touched){
+          @if(userForm.get('email')?.errors?.['required']){<span class="error-msg">البريد الإلكتروني مطلوب</span>}
+          @if(userForm.get('email')?.errors?.['email']){<span class="error-msg">أدخل بريدًا إلكترونيًا صحيحًا</span>}
+        }
+      </div>
+      <div class="form-field">
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" formControlName="password" placeholder="••••••••" dir="ltr">
+        @if(userForm.get('password')?.invalid && userForm.get('password')?.touched){
+          @if(userForm.get('password')?.errors?.['required']){<span class="error-msg">كلمة المرور مطلوبة</span>}
+          @if(userForm.get('password')?.errors?.['minlength']){<span class="error-msg">كلمة المرور يجب ألا تقل عن 5 أحرف</span>}
+        }
+      </div>
+      <button class="primary-btn" type="submit" [disabled]="userForm.invalid">تسجيل الدخول <span>←</span></button>
+      @if(error){<div class="form-alert">البريد الإلكتروني أو كلمة المرور غير صحيحة.</div>}
+      <p class="auth-switch">ليس لديك حساب؟ <a routerLink="/register">إنشاء حساب جديد</a></p>
+      <div class="privacy-note"><span>ⓘ</span> بيانات الحسابات محفوظة محليًا في هذا النموذج التجريبي، ولا يوجد خادم متصل.</div>
+    </form>
+  </section>
+</div>

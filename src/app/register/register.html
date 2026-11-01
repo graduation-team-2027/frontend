@@ -1,0 +1,30 @@
+<div class="auth-page">
+  <section class="auth-brand">
+    <div class="brand-mark">⬡</div><div class="brand-name">Sentinel</div>
+    <p>المراقبة الذكية للحوادث</p><div class="brand-foot">Human review · Evidence-based decisions</div>
+  </section>
+  <section class="auth-content">
+    <form class="auth-card register-card" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+      <div class="eyebrow">CREATE ACCOUNT</div><h1>إنشاء حساب</h1><p class="subtext">أدخل بياناتك للبدء في استخدام Sentinel.</p>
+      <div class="form-field"><label for="name">الاسم</label><input id="name" type="text" name="name" [(ngModel)]="user.name" #name="ngModel" required minlength="3" pattern="^[A-Za-z]+$" placeholder="Shaimaa" dir="ltr">
+        @if(name.invalid && name.touched){@if(name.errors?.['required']){<span class="error-msg">الاسم مطلوب</span>}@if(name.errors?.['minlength']){<span class="error-msg">الاسم يجب أن يكون 3 أحرف على الأقل</span>}@if(name.errors?.['pattern']){<span class="error-msg">استخدم الحروف الإنجليزية فقط دون مسافات أو أرقام</span>}}
+      </div>
+      <div class="form-field"><label for="email">البريد الإلكتروني</label><input id="email" type="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="name@example.com" dir="ltr">
+        @if(email.invalid && email.touched){@if(email.errors?.['required']){<span class="error-msg">البريد الإلكتروني مطلوب</span>}@if(email.errors?.['email'] || email.errors?.['pattern']){<span class="error-msg">أدخل بريدًا إلكترونيًا صحيحًا</span>}}
+      </div>
+      <div class="form-field"><label for="phone">رقم الهاتف</label><input id="phone" type="text" name="phone" [(ngModel)]="user.phone" #phone="ngModel" required minlength="11" maxlength="11" pattern="^[0-9]*$" placeholder="01xxxxxxxxx" dir="ltr">
+        @if(phone.invalid && phone.touched){@if(phone.errors?.['required']){<span class="error-msg">رقم الهاتف مطلوب</span>}@if(phone.errors?.['minlength']){<span class="error-msg">رقم الهاتف يجب أن يتكون من 11 رقمًا</span>}@if(phone.errors?.['pattern']){<span class="error-msg">رقم الهاتف يجب أن يحتوي على أرقام فقط</span>}}
+      </div>
+      <div class="form-field"><label for="password">كلمة المرور</label><input id="password" type="password" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="5" pattern="^(?=.*[A-Za-z])(?=.*\d).{5,}$" placeholder="••••••••" dir="ltr">
+        @if(password.touched && password.invalid){@if(password.errors?.['required']){<span class="error-msg">كلمة المرور مطلوبة</span>}@if(password.errors?.['pattern']){<span class="error-msg">يجب أن تحتوي على حرف ورقم على الأقل</span>}@if(password.errors?.['minlength']){<span class="error-msg">كلمة المرور يجب أن تكون 5 أحرف على الأقل</span>}}
+      </div>
+      <div class="form-field"><label for="confirmPassword">تأكيد كلمة المرور</label><input id="confirmPassword" type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required minlength="5" pattern="^(?=.*[A-Za-z])(?=.*\d).{5,}$" placeholder="••••••••" dir="ltr">
+        @if((confirmPassword.touched && confirmPassword.invalid) || passwordsDoNotMatch){@if(confirmPassword.errors?.['required']){<span class="error-msg">تأكيد كلمة المرور مطلوب</span>}@if(confirmPassword.errors?.['pattern']){<span class="error-msg">يجب أن تحتوي على حرف ورقم على الأقل</span>}@if(confirmPassword.errors?.['minlength']){<span class="error-msg">كلمة المرور يجب أن تكون 5 أحرف على الأقل</span>}@if(passwordsDoNotMatch){<span class="error-msg">كلمتا المرور غير متطابقتين</span>}}
+      </div>
+      <button class="primary-btn" type="submit" [disabled]="registerForm.invalid || passwordsDoNotMatch">إنشاء الحساب <span>←</span></button>
+      @if(registered){<div class="success-alert">تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.</div>}
+      <p class="auth-switch">لديك حساب بالفعل؟ <a routerLink="/login">تسجيل الدخول</a></p>
+      <div class="privacy-note"><span>ⓘ</span> يتم حفظ بيانات الحساب محليًا في المتصفح لأغراض التجربة.</div>
+    </form>
+  </section>
+</div>
